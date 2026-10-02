@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: stocktensor-miner-kit
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: stocktensor/stocktensor-subnet
+          path: stocktensor-subnet
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - working-directory: stocktensor-miner-kit
+        run: |
+          uv sync --frozen --extra ml
+          uv run ruff check .
+          uv run ruff format --check .
+          uv run pytest -q
+      - name: Check tag matches version
+        working-directory: stocktensor-miner-kit
+        run: |
+          version=$(grep -m1 '^version = ' pyproject.toml | cut -d '"' -f2)
+          test "v${version}" = "${GITHUB_REF_NAME}" || { echo "tag ${GITHUB_REF_NAME} != v${version}"; exit 1; }
+      - name: Build
+        working-directory: stocktensor-miner-kit
+        run: uv build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: stocktensor-miner-kit/dist/
+
+  release:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" dist/* --repo "${GITHUB_REPOSITORY}" --title "${GITHUB_REF_NAME}" --generate-notes
