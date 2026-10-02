@@ -1,10 +1,10 @@
 # stocktensor-miner-kit
 
 Starter models, Chainlink price data and a local backtest that uses the **exact
-validator scoring** of the [Stocktensor subnet](https://github.com/stocktensor/stocktensor-subnet).
-Go from zero to a scored Stocktensor miner in three commands.
+validator scoring** of the [StockTensor subnet](https://github.com/stocktensor/stocktensor-subnet).
+Go from zero to a scored StockTensor miner in three commands.
 
-Stocktensor is a Bittensor subnet where miners forecast Robinhood Chain stock
+StockTensor is a Bittensor subnet where miners forecast Robinhood Chain stock
 tokens (NVDA, AAPL, TSLA, SPY and more) over 1 hour, 1 day and 1 week.
 Validators score every forecast against the Chainlink price on Robinhood Chain.
 
@@ -98,6 +98,15 @@ The kit imports scoring from the `stocktensor` package (stocktensor-subnet) and
 checks it against the subnet's golden vectors (`tests/golden`, refresh with
 `uv run python scripts/sync_golden.py`).
 
+## Links
+
+- Website: https://stocktensor.io
+- Docs: https://docs.stocktensor.io
+- dApp: https://dapp.stocktensor.io
+- X: https://x.com/stocktensor
+- Telegram: https://t.me/stocktensorio
+- GitHub: https://github.com/stocktensor
+
 ## License
 
-MIT © 2026 Stocktensor · [stocktensor.io](https://stocktensor.io)
+MIT © 2026 StockTensor · [stocktensor.io](https://stocktensor.io)
