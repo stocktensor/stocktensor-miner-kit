@@ -49,8 +49,10 @@ Your own model is any function with this signature, loaded as `module:callable`:
 ```python
 from stocktensor.protocol import Forecast
 
-def predict(asset: str, horizon_seconds: int, history: list[tuple[int, float]],
-            reference_price: float, as_of: int) -> Forecast:
+
+def predict(
+    asset: str, horizon_seconds: int, history: list[tuple[int, float]], reference_price: float, as_of: int
+) -> Forecast:
     # history = [(updated_at, price), ...] up to as_of, oldest first
     ...
 ```
