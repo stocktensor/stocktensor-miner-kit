@@ -1674,7 +1674,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "scikit-learn", marker = "extra == 'ml'", specifier = ">=1.5,<2" },
-    { name = "stocktensor-subnet", editable = "../stocktensor-subnet" },
+    { name = "stocktensor-subnet", git = "https://github.com/stocktensor/stocktensor-subnet?rev=v0.1.0" },
 ]
 provides-extras = ["ml"]
 
@@ -1687,23 +1687,10 @@ dev = [
 [[package]]
 name = "stocktensor-subnet"
 version = "0.1.0"
-source = { editable = "../stocktensor-subnet" }
+source = { git = "https://github.com/stocktensor/stocktensor-subnet?rev=v0.1.0#74bb6c7a0b6958755b751d42759ad45d92f2961c" }
 dependencies = [
     { name = "aiohttp" },
     { name = "bittensor" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "aiohttp", specifier = ">=3.10,<4" },
-    { name = "bittensor", specifier = ">=11.1,<12" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pytest", specifier = ">=8" },
-    { name = "pytest-asyncio", specifier = ">=0.24" },
-    { name = "ruff", specifier = ">=0.6" },
 ]
 
 [[package]]

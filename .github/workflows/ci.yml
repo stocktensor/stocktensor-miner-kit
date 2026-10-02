@@ -28,27 +28,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          path: stocktensor-miner-kit
-          persist-credentials: false
-      # The kit depends on the sibling stocktensor-subnet checkout during development.
-      - uses: actions/checkout@v4
-        with:
-          repository: stocktensor/stocktensor-subnet
-          path: stocktensor-subnet
           persist-credentials: false
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python }}
           enable-cache: true
-          cache-dependency-glob: stocktensor-miner-kit/uv.lock
+          cache-dependency-glob: uv.lock
       - name: Install
-        working-directory: stocktensor-miner-kit
         run: uv sync --frozen ${{ matrix.extras && '--extra ml' || '' }}
       - name: Lint
-        working-directory: stocktensor-miner-kit
         run: |
           uv run ruff check .
           uv run ruff format --check .
       - name: Test
-        working-directory: stocktensor-miner-kit
         run: uv run pytest -q

@@ -27,12 +27,6 @@ stx-data = "stocktensor_kit.cli:data_main"
 stx-backtest = "stocktensor_kit.cli:backtest_main"
 stx-serve = "stocktensor_kit.cli:serve_main"
 
-# Development uses a sibling checkout of stocktensor-subnet; installs from the
-# published package resolve the git tag in `dependencies` above.
-[tool.uv.sources]
-stocktensor-subnet = { path = "../stocktensor-subnet", editable = true }
-# Release: stocktensor-subnet = { git = "https://github.com/stocktensor/stocktensor-subnet", tag = "v0.1.0" }
-
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.6"]
 
